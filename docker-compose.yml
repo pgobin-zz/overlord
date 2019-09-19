@@ -1,0 +1,16 @@
+version: "3"
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: server
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "8000:8000"
+  cassandra:
+    container_name: cassandra
+    image: cassandra:3.11
+    ports:
+      - "9042:9042"

@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+echo "Waiting for C* to start..."
+
+while ! nc -z cassandra 9042; do
+  sleep 0.1
+done
+
+echo "C* is running..."
+
+[ "$NODE_ENV" = "production" ] &&
+  pm2-runtime /opt/app/index.js --node-args="-r esm -r dotenv/config" ||
+  npm start
